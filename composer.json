@@ -1,0 +1,40 @@
+{
+    "name": "agencycoda/mia-stripe-mezzio",
+    "description": "The library for Mezzio",
+    "version": "0.0.1",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [{
+        "name": "Matias Camiletti",
+        "homepage": "https://agencycoda.com"
+    }],
+    "require": {
+        "php": "^7.3",
+        "agencycoda/mia-core-mezzio": "dev-main",
+        "agencycoda/mia-eloquent-mezzio": "dev-main",
+        "agencycoda/mia-auth-mezzio": "dev-main",
+        "stripe/stripe-php": "^7.69"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mia\\Stripe\\": "src/"
+        }
+    },
+    "scripts": {
+        "serve": "php -S 0.0.0.0:8080 -t example/"
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/agencycoda/mia-core-mezzio.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/agencycoda/mia-eloquent-mezzio.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/agencycoda/mia-auth-mezzio.git"
+        }
+    ]
+}
