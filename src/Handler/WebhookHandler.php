@@ -15,7 +15,7 @@ abstract class WebhookHandler extends \Mia\Auth\Request\MiaAuthRequestHandler
     /**
      * @var StripeHelper
      */
-    private $service;
+    protected $service;
 
     public function __construct(StripeHelper $stripe) {
         $this->service = $stripe;
@@ -28,7 +28,7 @@ abstract class WebhookHandler extends \Mia\Auth\Request\MiaAuthRequestHandler
     public function handle(\Psr\Http\Message\ServerRequestInterface $request): \Psr\Http\Message\ResponseInterface 
     {
         $this->configWebhook($request);
-        
+
         try {
             $event = \Stripe\Webhook::constructEvent(
                 $request->getBody(),
