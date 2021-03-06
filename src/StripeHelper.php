@@ -17,6 +17,10 @@ class StripeHelper
      */
     protected $publishableKey = '';
     /**
+     * @var string
+     */
+    protected $webhookSecret = '';
+    /**
      * 
      * @param string $access_token
      */
@@ -143,6 +147,34 @@ class StripeHelper
             'metadata' => ['integration_check' => 'accept_a_payment'],
         ], ['stripe_account' => $stripeAccout]);
     }
+
+    public function createCheckoutSubscription($priceId, $successUrl, $cancelUrl)
+    {
+        return \Stripe\Checkout\Session::create([
+            'success_url' => $successUrl,
+            'cancel_url' => $cancelUrl,
+            'payment_method_types' => ['card'],
+            'mode' => 'subscription',
+            'line_items' => [[
+              'price' => $priceId,
+              // For metered billing, do not pass quantity
+              'quantity' => 1,
+            ]],
+        ]);
+    }
+
+    public function getCheckoutSession($sessionId)
+    {
+        return \Stripe\Checkout\Session::retrieve($sessionId);
+    }
+
+    public function createBillingPortal($stripeCustomerId, $returnUrl)
+    {
+        return \Stripe\BillingPortal\Session::create([
+            'customer' => $stripeCustomerId,
+            'return_url' => $returnUrl,
+        ]);
+    }
     
     public function retrieve($paymentIntentId)
     {
@@ -184,5 +216,15 @@ class StripeHelper
         }
         
         return true;
+    }
+
+    public function setWebhookSecret($secret)
+    {
+        $this->webhookSecret = $secret;
+    }
+
+    public function getWebhookSecret()
+    {
+        return $this->webhookSecret;
     }
 }
