@@ -34,7 +34,12 @@ abstract class WebhookHandler extends \Mia\Auth\Request\MiaAuthRequestHandler
                 $this->service->getWebhookSecret()
             );
         } catch (\Exception $e) {
-            return new MiaJsonErrorResponse(-3, 'Problem with webhook: ' . $e->getMessage());
+            return new \Laminas\Diactoros\Response\JsonResponse([
+                'message' => 'Problem with webhook: ' . $e->getMessage(),
+                'headers' => $request->getHeaders(),
+                'all_params' => $this->getAllParam($request)
+            ]);
+            //return new MiaJsonErrorResponse(-3, 'Problem with webhook: ' . $e->getMessage());
         }
 
         return $this->processEventStripe($event['type'], $event['data']['object']);
