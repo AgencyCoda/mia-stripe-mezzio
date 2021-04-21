@@ -148,6 +148,30 @@ class StripeHelper
         ], ['stripe_account' => $stripeAccout]);
     }
 
+    public function createProductForSubscription($name, $amount, $isYearly = false)
+    {
+        $typeRecurring = 'month';
+        if($isYearly){
+            $typeRecurring = 'year';
+        }
+
+        $product = \Stripe\Product::create([
+            'name' => $name
+        ]);
+
+        $price = \Stripe\Price::create([
+            'currency' => 'usd',
+            'product' => $product['id'],
+            'recurring' => [
+                'interval' => $typeRecurring,
+                'interval_count' => 1
+            ],
+            'unit_amount_decimal' => ($amount * 100) . ''
+        ]);
+
+        return $price['id'];
+    }
+
     public function createCheckoutSubscription($priceId, $successUrl, $cancelUrl)
     {
         return \Stripe\Checkout\Session::create([

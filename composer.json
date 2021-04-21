@@ -1,7 +1,7 @@
 {
     "name": "agencycoda/mia-stripe-mezzio",
     "description": "The library for Mezzio",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "minimum-stability": "stable",
     "license": "MIT",
     "authors": [{
