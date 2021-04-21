@@ -172,13 +172,14 @@ class StripeHelper
         return $price['id'];
     }
 
-    public function createCheckoutSubscription($priceId, $successUrl, $cancelUrl)
+    public function createCheckoutSubscription($priceId, $successUrl, $cancelUrl, $additionalParams = [])
     {
         return \Stripe\Checkout\Session::create([
             'success_url' => $successUrl,
             'cancel_url' => $cancelUrl,
             'payment_method_types' => ['card'],
             'mode' => 'subscription',
+            'metadata' => $additionalParams,
             'line_items' => [[
               'price' => $priceId,
               // For metered billing, do not pass quantity
