@@ -172,13 +172,14 @@ class StripeHelper
         return $price['id'];
     }
 
-    public function createCheckoutSubscription($priceId, $successUrl, $cancelUrl, $additionalParams = [])
+    public function createCheckoutSubscription($priceId, $successUrl, $cancelUrl, $uniqueId = 0, $additionalParams = [])
     {
         return \Stripe\Checkout\Session::create([
             'success_url' => $successUrl,
             'cancel_url' => $cancelUrl,
             'payment_method_types' => ['card'],
             'mode' => 'subscription',
+            'client_reference_id' => $uniqueId . '',
             'metadata' => $additionalParams,
             'line_items' => [[
               'price' => $priceId,
