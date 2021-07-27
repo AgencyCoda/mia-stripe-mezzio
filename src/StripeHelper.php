@@ -36,6 +36,26 @@ class StripeHelper
         \Stripe\Stripe::setApiKey($this->apiKey);
     }
 
+    public function prebuiltCheckeoutPage($title, $amount, $quantity = 1, $successUrl = '', $cancelUrl = '')
+    {
+        return \Stripe\Checkout\Session::create([
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price_data' => [
+                  'currency' => 'usd',
+                  'product_data' => [
+                    'name' => $title,
+                  ],
+                  'unit_amount' => $amount,
+                ],
+                'quantity' => $quantity,
+            ]],
+            'mode' => 'payment',
+            'success_url' => $successUrl,
+            'cancel_url' => $cancelUrl,
+        ]);
+    }
+
     public function createExpressAccount()
     {
         return \Stripe\Account::create([
