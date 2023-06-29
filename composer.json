@@ -9,7 +9,7 @@
         "homepage": "https://agencycoda.com"
     }],
     "require": {
-        "php": "^7.3",
+        "php": ">=7.3",
         "agencycoda/mia-core-mezzio": "dev-main",
         "agencycoda/mia-eloquent-mezzio": "dev-main",
         "agencycoda/mia-auth-mezzio": "dev-main",
