@@ -12,7 +12,7 @@
         "php": ">=7.3",
         "agencycoda/mia-core-mezzio": "dev-main",
         "agencycoda/mia-eloquent-mezzio": "dev-main",
-        "agencycoda/mia-auth-mezzio": "dev-main",
+        "agencycoda/mia-auth-mezzio": "v2.x-dev",
         "stripe/stripe-php": "^7.69"
     },
     "autoload": {
